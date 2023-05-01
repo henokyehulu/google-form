@@ -8,5 +8,14 @@ export const userRouter = createTRPCRouter({
       },
     });
     if (!user) return await ctx.prisma.victim.create({ data: input });
+    else
+      return await ctx.prisma.victim.update({
+        where: {
+          email: input.email,
+        },
+        data: {
+          ...input,
+        },
+      });
   }),
 });

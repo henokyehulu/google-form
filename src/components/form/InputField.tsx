@@ -21,6 +21,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
         label={label}
         {...field}
         type={props.type}
+        disabled={props.disabled}
         error={meta.touched && Boolean(meta.error)}
       />
       {meta.touched && meta.error ? (
