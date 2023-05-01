@@ -61,6 +61,7 @@ const MultiStepForm: React.FC<MultiStepFormProps> = ({
             {step}
             <FormNavigation
               isLastStep={isLastStep}
+              isSubmitting={formik.isSubmitting}
               hasPrevious={stepNumber > 0}
               onBackClick={() => prev(formik.values)}
             />

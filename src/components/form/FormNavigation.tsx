@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import type { FormikValues } from "formik";
-import { ButtonBase, Menu, MenuItem } from "@mui/material";
+import { ButtonBase, Menu, MenuItem, Button } from "@mui/material";
 import { useRouter } from "next/router";
 
 interface FormNavigationProps {
   hasPrevious?: boolean;
   onBackClick: (values: FormikValues) => void;
   isLastStep: boolean;
+  isSubmitting: boolean;
 }
 
-const CreateAccount: React.FC = () => {
+const CreateAccount: React.FC<{ isSubmitting: boolean }> = (props) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -25,6 +26,7 @@ const CreateAccount: React.FC = () => {
   return (
     <div className="-ml-2">
       <ButtonBase
+        disabled={props.isSubmitting}
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -81,22 +83,26 @@ const FormNavigation: React.FC<FormNavigationProps> = (props) => {
   return (
     <div className="mt-10 flex items-center justify-between text-sm">
       {props.hasPrevious ? (
-        <button
-          type="button"
-          className={`h-9 rounded px-2 font-medium text-[#1A73E8] outline-none hover:bg-[#F6FAFE] hover:text-[#174EA6] focus:bg-[#DDEAFC] focus:text-[#174EA6] focus:ring-2 focus:ring-[#174EA6] focus:ring-offset-2`}
+        <Button
+          variant="text"
+          type="submit"
+          disabled={props.isSubmitting}
           onClick={props.onBackClick}
+          className="h-9 rounded px-6 font-medium capitalize text-[#1A73E8]"
         >
           Back
-        </button>
+        </Button>
       ) : (
-        <CreateAccount />
+        <CreateAccount isSubmitting={props.isSubmitting} />
       )}
-      <ButtonBase
+      <Button
+        variant="contained"
         type="submit"
-        className="h-9 rounded bg-[#1A73E8] px-6 font-medium text-white outline-none hover:bg-[#1B66C9] focus:bg-[#174EA6] focus:ring-2 focus:ring-[#174EA6] focus:ring-offset-2"
+        disabled={props.isSubmitting}
+        className="h-9 rounded bg-[#1A73E8] px-6 font-medium capitalize text-white"
       >
         Next
-      </ButtonBase>
+      </Button>
     </div>
   );
 };

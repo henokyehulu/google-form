@@ -123,6 +123,7 @@ const Signin: NextPage = () => {
                   />
                   <div className="-ml-2.5 flex items-center text-sm">
                     <Checkbox
+                      disabled={submitting}
                       checked={showPassword}
                       onChange={handleShowPassword}
                     />
